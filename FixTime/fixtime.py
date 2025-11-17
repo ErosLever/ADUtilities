@@ -120,7 +120,7 @@ def sync_time(time_str):
         log("[*] Disabling NTP", True)
         subprocess.run(["sudo", "timedatectl", "set-ntp", "off"], check=True, capture_output=True)
         log(f"[*] Setting time to {time_str}", True)
-        subprocess.run(["sudo", "date", "-s", time_str], check=True, capture_output=True)
+        subprocess.run(["sudo", "date", "-u", "-s", time_str], check=True, capture_output=True)
         print("[+] Time synced successfully")
     except:
         print("[-] Failed to sync time. Run with sudo")

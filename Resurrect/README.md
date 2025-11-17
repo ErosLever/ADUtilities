@@ -58,13 +58,13 @@ pip3 install -r requirements.txt
 
 ```shell
 # Find all deleted users and computers
-python3 adtomb.py find --domain example.com --username admin \
+python3 resurrect.py find --domain example.com --username admin \
   --password 'Password123!' --target 10.10.11.72 --ldaps
 
 
 
 # Using Pass-The-Hash
-python3 adtomb.py find --domain example.com --username admin \
+python3 resurrect.py find --domain example.com --username admin \
   --hash '8846f7eaee8fb117ad06bdd830b7586c' \ 
   --target 10.10.11.72 --ldaps
 ```
@@ -73,13 +73,13 @@ python3 adtomb.py find --domain example.com --username admin \
 ## Restore Deleted Objects
 
 ```shell
-python3 adtomb.py restore --domain example.com --username admin \
+python3 resurrect.py restore --domain example.com --username admin \
   --password 'Password123!' --target 10.10.11.72 --ldaps \
   --guid "f88369c8-86a2-4a7f-a56c-9c15edd7d1e3" \
   --ou "OU=IT,OU=Users,DC=example,DC=com"
   
   
-  python3 adtomb.py restore --domain example.com --username admin \
+  python3 resurrect.py restore --domain example.com --username admin \
   --hash '149e0ed1f84c8fd4ecb11a9c2ab7af2b' --target 10.10.11.72 --ldaps \
   --guid "f88369c8-86a2-4a7f-a56c-9c15edd7d1e3" \
   --ou "OU=IT,OU=Users,DC=example,DC=com"

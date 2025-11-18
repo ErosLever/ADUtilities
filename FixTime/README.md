@@ -33,13 +33,13 @@ Perfect for pentesters doing Kerberos-based operations where precise time alignm
 ### **Bash Version**
 
 ```bash
-sudo ./timefix <IP>
+sudo ./fixtime <IP>
 ```
 
 Example:
 
 ```bash
-sudo ./timefix 10.10.10.5
+sudo ./fixtime 10.10.10.5
 ```
 
 ---
@@ -47,13 +47,13 @@ sudo ./timefix 10.10.10.5
 ### **Python Version**
 
 ```bash
-python3 timefix.py -u <IP>
+python3 fixtime.py -u <IP>
 ```
 
 Example:
 
 ```bash
-python3 timefix.py -u 10.10.10.5
+python3 fixtime.py -u 10.10.10.5
 ```
 
 ---

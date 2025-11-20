@@ -32,13 +32,15 @@ def validate_url():
     hostname = parsed.hostname or parsed.path.split(':')[0]
     return url, hostname
 
-def get_time_ntp(url):
-    try:
-        resp = ntp.request(url)
+def get_time_ntp(host):
+    # try:
+    if True:
+        ntp = NTPClient()
+        resp = ntp.request(host)
         current = datetime.utcnow()
         return current + timedelta(seconds=resp.offset)
-    except:
-        return None
+    # except:
+    #     return None
 
 def check_port(host, port):
     try:
@@ -92,7 +94,7 @@ def get_time_rpc(host):
 
 def get_remote_time(url, host):
     # Try NTP
-    time = get_time_ntp(url)
+    time = get_time_ntp(host)
     if time is not None:
         return time, "NTP"
     
@@ -129,7 +131,8 @@ def main():
     
     if time:
         print(f"[+] Time retrieved via {method}: {time.strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"[+] Time delta: {(time - datetime.utcnow()).total_seconds()}")
+        print(f"[+] Time delta: {int((time - datetime.utcnow()).total_seconds()):+}")
+        print(f"[+] Use `faketime -f <DELTA> <COMMAND>`")
     else:
         print("[-] Failed to fetch remote time")
 

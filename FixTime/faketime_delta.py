@@ -9,10 +9,11 @@ import requests
 import subprocess
 import argparse
 import socket
-from datetime import datetime
+from datetime import datetime, timedelta
 from urllib.parse import urlparse
 from impacket.smbconnection import SMBConnection
 from impacket.dcerpc.v5 import transport, epm
+from ntplib import NTPClient
 
 parser = argparse.ArgumentParser(description="Find time delta with respect to remote Windows target")
 parser.add_argument("-u", "--url", help="Target URL/IP")
@@ -30,6 +31,14 @@ def validate_url():
     parsed = urlparse(url)
     hostname = parsed.hostname or parsed.path.split(':')[0]
     return url, hostname
+
+def get_time_ntp(url):
+    try:
+        resp = ntp.request(url)
+        current = datetime.utcnow()
+        return current + timedelta(seconds=resp.offset)
+    except:
+        return None
 
 def check_port(host, port):
     try:
@@ -82,6 +91,11 @@ def get_time_rpc(host):
     return None
 
 def get_remote_time(url, host):
+    # Try NTP
+    time = get_time_ntp(url)
+    if time is not None:
+        return time, "NTP"
+    
     # Try WinRM
     if check_port(host, 5985):
         log("[+] Port 5985 (WinRM) is open", True)
